@@ -8,6 +8,7 @@
 <style>
 :root{--night:#160f3a;--grape:#2b1d6b;--banana:#ffd426;--coral:#ff5a5f;--mint:#2fe0b0;--text:#fff;--muted:#b9acd9}
 *{box-sizing:border-box;margin:0}
+[hidden]{display:none!important}
 body{background:var(--night);color:var(--text);font-family:"Baloo 2","Trebuchet MS",system-ui,sans-serif;font-weight:500;min-height:100vh}
 a{color:inherit;text-decoration:none}
 header{position:sticky;top:0;z-index:5;background:var(--grape);display:flex;gap:16px;align-items:center;padding:10px 20px;border-bottom:4px solid var(--banana)}
@@ -73,19 +74,32 @@ const CONFIG = { src: "games.json", batch: 60 };
 const $ = id => document.getElementById(id);
 let all = [], cat = "", shown = 0;
 
-/* ----- Sesuaikan di sini jika nama field di JSON berbeda ----- */
-const str = v => typeof v === "string" ? v : Array.isArray(v) ? str(v[0]) : v && typeof v === "object" ? str(v.url || v.src || v.name || Object.values(v).find(x => typeof x === "string")) : "";
-const pick = (o, ks) => { for (const k of ks) if (o[k]) return o[k]; };
-function normalize(g) {
-  return {
-    title: str(pick(g, ["title", "name"])) || "Game",
-    img: str(pick(g, ["thumbnail", "cover", "image", "icon", "preview", "imageUrl", "images", "assets"])),
-    url: str(pick(g, ["gameURL", "gameUrl", "embedUrl", "iframeUrl", "url", "link"])),
-    cat: str(pick(g, ["genre", "genres", "category", "categories"]))
-  };
+/* ----- Pembaca data: mencari game di posisi mana pun dalam JSON ----- */
+const GAMEURL = /\/export\/game\//i;
+const loc = v => typeof v === "string" ? v : Array.isArray(v) ? loc(v[0]) : v && typeof v === "object" ? loc(v.en || v.EN || v.name || v.title || Object.values(v).find(x => typeof x === "string")) : "";
+function findGames(d, out = []) {
+  if (Array.isArray(d)) d.forEach(x => findGames(x, out));
+  else if (d && typeof d === "object") {
+    if (Object.values(d).some(v => typeof v === "string" && GAMEURL.test(v))) out.push(d);
+    else Object.values(d).forEach(x => findGames(x, out));
+  }
+  return out;
 }
-const listOf = d => Array.isArray(d) ? d : [d.games, d.items, d.results, d.data && d.data.games, d.data].find(Array.isArray) || [];
-/* ------------------------------------------------------------- */
+function walk(o, path, out) {
+  if (typeof o === "string") out.push([path, o]);
+  else if (o && typeof o === "object") for (const k in o) walk(o[k], path + "." + k, out);
+  return out;
+}
+function normalize(g) {
+  const flat = walk(g, "", []);
+  const url = flat.find(([, v]) => GAMEURL.test(v))[1];
+  const imgs = flat.filter(([k, v]) => /^https?:/.test(v) && (/\.(png|jpe?g|webp|gif|avif)(\?|$)/i.test(v) || /thumb|cover|icon|image|preview|poster/i.test(k)));
+  const best = imgs.find(([k]) => /thumb|cover|preview/i.test(k)) || imgs[0];
+  const c = flat.find(([k]) => /genre|categor/i.test(k));
+  const title = loc(g.title || g.name) || url.split("/").pop().replace(/[-_]+/g, " ").replace(/\b\w/g, m => m.toUpperCase());
+  return { title, img: best ? best[1] : "", url, cat: c ? c[1] : "" };
+}
+/* ------------------------------------------------------------------- */
 
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
 
@@ -118,9 +132,14 @@ function drawGames(reset) {
 }
 
 function setData(d) {
-  console.log("Contoh data Playgama:", listOf(d)[0]);
-  all = listOf(d).map(normalize).filter(g => g.url);
-  if (!all.length) { $("note").textContent = "File terbaca tapi tidak ada game dengan gameURL. Cek Console untuk melihat format datanya."; return; }
+  all = findGames(d).map(normalize);
+  if (!all.length) {
+    const pre = el("pre", "", JSON.stringify(d, null, 1).slice(0, 700));
+    pre.style.cssText = "white-space:pre-wrap;font-size:12px;margin-top:8px";
+    const n = el("div", "note", "File terbaca, tapi tidak ada link game (/export/game/) di dalamnya. Kirim potongan ini ke Claude:");
+    n.append(pre); $("note").replaceChildren(n);
+    return;
+  }
   $("note").textContent = "";
   drawCats(); drawGames(true);
 }
