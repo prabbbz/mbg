@@ -35,7 +35,7 @@ function normalize(g) {
 
 const rnd = n => Math.floor(Math.random() * n);
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
-let all = [], cat = "", shown = 0, adPos = 5, adIdx = -1, feat = null;
+let all = [], cat = "", shown = 0, adPos = 5, adIdx = -1;
 
 /* ----- animasi muncul saat scroll, glow kursor, progress bar ----- */
 const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }), { threshold: .12 });
@@ -64,7 +64,7 @@ function onScroll() {
   links.forEach((a, n) => a.classList.toggle("on", n === i));
   bar.style.transform = `scaleX(${scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight)})`;
 }
-addEventListener("scroll", onScroll, { passive: true }); onScroll();
+addEventListener("scroll", onScroll, { passive: true }); addEventListener("resize", onScroll); onScroll();
 function countUp(e) {
   const t = parseInt(e.textContent.replace(/\D/g, "")) || 0; let s = null;
   const f = ts => { s ??= ts; const p = Math.min((ts - s) / 1200, 1); e.textContent = Math.round(t * (1 - Math.pow(1 - p, 3))).toLocaleString("id-ID"); if (p < 1) requestAnimationFrame(f); };
@@ -93,9 +93,9 @@ function showBanner() {
   $("adslot").replaceChildren(a);
 }
 function adCard() {
-  const n = rnd(ADS.length), d = ADS[n], a = adLink(n, "tile", "card gcard adcard");
-  a.innerHTML = `<div class="cover"><svg class="i big b"><use href="#i-roblox"/></svg></div><div class="gbody"><small>Iklan</small><h3>${esc(d.h)}</h3><span class="btn sm">${esc(d.c)}</span></div>`;
-  reveal(a); return a;
+  const n = rnd(ADS.length), d = ADS[n], a = adLink(n, "tile", "tile adtile");
+  a.innerHTML = `<span class="ph"><svg class="i b"><use href="#i-roblox"/></svg></span><span class="ad">Iklan</span><span class="nm"><b>${esc(d.h)}</b></span>`;
+  return a;
 }
 function showSlim() {
   const n = nextAd(), d = ADS[n], a = adLink(n, "player", "slim");
@@ -118,12 +118,12 @@ function drawCats() {
   markCats();
 }
 function markCats() { [...$("cats").children].forEach(b => b.classList.toggle("on", b.dataset.slug === cat)); }
-function gameCard(g, k) {
-  const c = el("article", "card gcard");
-  c.style.setProperty("--d", (k % 4) * .08 + "s");
-  c.innerHTML = `<div class="cover"><svg class="i big"><use href="#i-pad"/></svg>${g.img ? `<img src="${esc(g.img)}" alt="" loading="lazy" onerror="this.remove()">` : ""}</div><div class="gbody">${g.cat ? `<small>${esc(g.cat)}</small>` : ""}<h3>${esc(g.title)}</h3><button class="btn sm" type="button"><svg class="i f"><use href="#i-play"/></svg>Mainkan</button></div>`;
+function gameCard(g, big) {
+  const c = el("button", "tile" + (big ? " big" : ""));
+  c.type = "button"; c.title = g.title;
+  c.innerHTML = `<span class="ph"><svg class="i"><use href="#i-pad"/></svg></span>${g.img ? `<img src="${esc(g.img)}" alt="" loading="lazy" onerror="this.remove()">` : ""}<span class="nm"><b>${esc(g.title)}</b></span>`;
   c.onclick = () => play(g);
-  reveal(c); return c;
+  return c;
 }
 function drawGames(reset) {
   const q = $("q").value.trim().toLowerCase(), grid = $("gameList");
@@ -131,18 +131,9 @@ function drawGames(reset) {
   const from = reset ? 0 : shown;
   shown = reset ? CONFIG.batch : shown + CONFIG.batch;
   if (reset) { adPos = 3 + rnd(7); grid.textContent = ""; if (!list.length) grid.append(el("p", "empty", "Game tidak ditemukan.")); }
-  list.slice(from, shown).forEach((g, k) => { const i = from + k; if (i === adPos && !q) grid.append(adCard()); grid.append(gameCard(g, k)); });
+  list.slice(from, shown).forEach((g, k) => { const i = from + k; if (i === adPos && !q) grid.append(adCard()); grid.append(gameCard(g, i % 14 === 0)); });
   $("more").hidden = shown >= list.length;
-}
-function renderFeat() {
-  const pool = all.filter(x => x.img), l = pool.length ? pool : all;
-  feat = l[rnd(l.length)];
-  $("fname").textContent = feat.title; $("fsub").textContent = "Game pilihan" + (feat.cat ? " · " + feat.cat : "");
-  const a = $("fava"); a.style.display = feat.img ? "" : "none"; a.onerror = () => a.style.display = "none"; if (feat.img) a.src = feat.img;
-}
-function renderMarquee() {
-  const names = [...all].sort(() => Math.random() - .5).slice(0, 12).map(g => `<span>${esc(g.title)}</span>`).join("");
-  $("mq").innerHTML = names.repeat(6);
+  onScroll();
 }
 function setData(d) {
   all = findGames(d).map(normalize);
@@ -152,7 +143,7 @@ function setData(d) {
   }
   $("note").textContent = "";
   $("stGames").textContent = all.length; countUp($("stGames"));
-  drawCats(); drawGames(true); renderFeat(); renderMarquee();
+  drawCats(); drawGames(true);
 }
 function showPicker() {
   $("gameList").textContent = ""; $("more").hidden = true;
@@ -175,7 +166,6 @@ $("pfs").onclick = () => $("frame").requestFullscreen && $("frame").requestFulls
 $("more").onclick = () => drawGames(false);
 $("q").oninput = () => drawGames(true);
 $("rand").onclick = () => { if (all.length) play(all[rnd(all.length)]); };
-$("fplay").onclick = () => { if (feat) play(feat); };
 
 // ===== BIO (link-in-bio) — panel dari tombol "Bio" di navbar =====
 // Link dengan u kosong tampil redup + label "Segera". Isi u untuk mengaktifkan.
