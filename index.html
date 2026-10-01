@@ -89,6 +89,25 @@ iframe{flex:1;width:100%;border:0;background:#000}
 .links{position:absolute;top:100%;left:0;right:0;flex-direction:column;display:none;background:var(--void);padding:8px 14px 14px;border-bottom:1px solid var(--line)}.links.open{display:flex}
 .hero{grid-template-columns:1fr;padding:36px 16px 0;gap:28px}.sec{padding:60px 16px 0}.search{flex:1 1 100%}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;scroll-behavior:auto}.tile:hover,.featcard:hover{transform:none}}
+.ad,.adtile{position:relative;display:flex;align-items:center;gap:20px;padding:18px 26px;color:var(--text);background:linear-gradient(135deg,var(--g1),var(--g2));clip-path:var(--cut);animation:adin .5s}
+@keyframes adin{from{opacity:0;transform:translateY(-6px)}}
+.ad{margin-bottom:18px}
+.ad::before,.adtile::before{content:"";position:absolute;inset:2px;background:#0b0e18;clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px)}
+.ad::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(100deg,transparent 40%,rgba(255,255,255,.12) 50%,transparent 60%);transform:translateX(-100%);animation:shine 3.5s ease-in-out infinite}
+@keyframes shine{to{transform:translateX(100%)}}
+.ad>*,.adtile>*{position:relative;z-index:1}
+.ad div{flex:1}
+.ad strong,.adtile strong{display:block;font-size:20px;line-height:1.15}
+.ad p,.adtile p{color:var(--muted);font-size:14px;margin-top:2px}
+.ad small,.adtile small,.slim small{align-self:flex-start;font-size:11px;letter-spacing:.2em;padding:2px 8px;border:1px solid var(--g1);color:var(--g1)}
+.ad em,.adtile em,.slim em{font-style:normal;background:var(--g1)}
+.adtile{flex-direction:column;align-items:stretch;justify-content:space-between;gap:8px;padding:16px;text-align:left}
+.adtile strong{font-size:16px}.adtile p{display:none}.adtile em{align-self:flex-start}
+.tile.adtile:hover{background:linear-gradient(135deg,var(--g2),var(--g1))}
+.slim{display:flex;align-items:center;gap:12px;padding:6px 14px;background:var(--panel);border-top:1px solid rgba(61,245,255,.35);font-size:13px;color:var(--muted)}
+.slim strong{flex:1;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.slim em{padding:3px 12px;font-size:12px}
+@media(max-width:760px){.ad{flex-wrap:wrap;gap:10px;padding:14px 18px}.ad div{flex:1 1 100%}}
 </style>
 </head>
 <body>
@@ -118,6 +137,7 @@ iframe{flex:1;width:100%;border:0;background:#000}
     <div class="search"><input id="q" type="search" placeholder="Cari game..." aria-label="Cari game"></div>
     <nav id="cats" aria-label="Kategori"></nav>
   </div>
+  <div id="adslot"></div>
   <div id="note"></div>
   <div class="grid" id="grid"></div>
   <button class="btn more" id="more" hidden>Muat lebih banyak</button>
@@ -136,7 +156,7 @@ iframe{flex:1;width:100%;border:0;background:#000}
 
 <footer>
   <p>&copy; 2026 MainYuk by <b>prabbbz</b></p>
-  <p>Selamat bermain dan jangan lupa mampir ke webku yang lain ya</p>
+  <p>Game disediakan oleh Playgama. Situs ini tidak berafiliasi dengan Playgama.</p>
 </footer>
 
 <dialog id="player">
@@ -146,6 +166,7 @@ iframe{flex:1;width:100%;border:0;background:#000}
     <button class="btn x" id="pclose">Tutup</button>
   </div>
   <iframe id="frame" allow="fullscreen; autoplay; gamepad; clipboard-write" title="Game"></iframe>
+  <div id="pad"></div>
 </dialog>
 
 <script>
@@ -206,9 +227,11 @@ function drawGames(reset) {
   const list = all.filter(g => (!cat || g.cat === cat) && g.title.toLowerCase().includes(q));
   shown = reset ? CONFIG.batch : shown;
   grid.classList.toggle("fx", !!reset);
+  if (reset) adPos = 3 + Math.floor(Math.random() * 7);
   grid.textContent = "";
   if (!list.length) grid.append(el("p", "msg", "Game tidak ditemukan."));
   list.slice(0, shown).forEach((g, idx) => {
+    if (idx === adPos && !q) grid.append(adTile());
     const t = el("button", "tile");
     t.style.setProperty("--i", idx);
     if (g.img) { const i = el("img"); i.src = g.img; i.alt = ""; i.loading = "lazy"; t.append(i); }
@@ -252,6 +275,7 @@ async function load() {
 
 function play(g) {
   $("ptitle").textContent = g.title;
+  showSlim();
   $("frame").src = g.url;
   $("player").showModal();
 }
@@ -274,6 +298,36 @@ function renderFeat() {
 $("rand").onclick = () => { if (all.length) play(all[Math.floor(Math.random() * all.length)]); };
 $("burger").onclick = () => $("links").classList.toggle("open");
 $("links").onclick = () => $("links").classList.remove("open");
+
+/* ===== Iklan sendiri (house ads) -> mengarah ke web Roblox ===== */
+const AD_URL = "https://roblox-prabbbz.vercel.app/";
+const ADS = [
+  { h: "Suka Roblox? Coba game buatan kami", p: "Gratis dan langsung main lewat Roblox.", c: "Mainkan", g: ["#3df5ff", "#6c7bff"] },
+  { h: "Bosan? Pindah main ke Roblox", p: "Kumpulan game Roblox buatan sendiri.", c: "Lihat game", g: ["#ff2fd6", "#ff8a5f"] },
+  { h: "Build • Script • Play", p: "Game Roblox buatan kami menunggumu.", c: "Kunjungi", g: ["#39ff88", "#3df5ff"] },
+  { h: "Mau game Roblox yang seru?", p: "Cek daftar game kami sekarang.", c: "Cek sekarang", g: ["#ffd426", "#ff2fd6"] },
+  { h: "Main Roblox bareng kami", p: "Pilih game favorit, klik Mainkan, selesai.", c: "Ayo main", g: ["#7cf9ff", "#ff2fd6"] }
+];
+let adIdx = -1, adPos = 5;
+function nextAd() { let n; do { n = Math.floor(Math.random() * ADS.length); } while (n === adIdx && ADS.length > 1); return (adIdx = n); }
+function adLink(n, place) {
+  const a = el("a"), d = ADS[n];
+  a.href = AD_URL + "?utm_source=mainyuk&utm_medium=house_ad&utm_campaign=ad" + (n + 1) + "&utm_content=" + place;
+  a.target = "_blank"; a.rel = "noopener";
+  a.style.setProperty("--g1", d.g[0]); a.style.setProperty("--g2", d.g[1]);
+  return a;
+}
+function adFill(a, d) {
+  const t = el("div"); t.append(el("strong", "", d.h), el("p", "", d.p));
+  a.append(el("small", "", "Iklan"), t, el("em", "btn", d.c));
+}
+function showBanner() { const n = nextAd(), a = adLink(n, "banner"); a.className = "ad"; adFill(a, ADS[n]); $("adslot").replaceChildren(a); }
+function adTile() { const n = Math.floor(Math.random() * ADS.length), a = adLink(n, "tile"); a.className = "tile adtile"; adFill(a, ADS[n]); return a; }
+function showSlim() {
+  const n = nextAd(), d = ADS[n], a = adLink(n, "player"); a.className = "slim";
+  a.append(el("small", "", "Iklan"), el("strong", "", d.h), el("em", "btn", d.c)); $("pad").replaceChildren(a);
+}
+showBanner(); setInterval(showBanner, 15000);
 
 load();
 </script>
