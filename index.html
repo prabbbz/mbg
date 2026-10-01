@@ -1,180 +1,390 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MainYuk - Game Online Gratis</title>
-<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600;700;800&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#07080c">
+<meta name="description" content="MainYuk by prabbbz - game online gratis, langsung main di browser.">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23ff3d8b'/%3E%3Cstop offset='1' stop-color='%23ff9a3c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M22 24h20a8 8 0 0 1 7 11l-3 7a4 4 0 0 1-7-1l-1-2H26l-1 2a4 4 0 0 1-7 1l-3-7a8 8 0 0 1 7-11z' fill='%2314060c'/%3E%3C/svg%3E">
+<title>MainYuk — Game Online Gratis</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--void:#07080c;--panel:#0e1118;--line:rgba(255,255,255,.09);--cyan:#3df5ff;--mag:#ff2fd6;--text:#eef3fb;--muted:#8c97ad;--cut:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);--cut-s:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}
-*{box-sizing:border-box;margin:0}
-[hidden]{display:none!important}
-html{background:var(--void);scroll-behavior:smooth;scroll-padding-top:76px}
-body{background:radial-gradient(ellipse at 20% -10%,rgba(61,245,255,.14),transparent 55%),radial-gradient(ellipse at 90% 10%,rgba(255,47,214,.1),transparent 50%) fixed;color:var(--text);font-family:Oxanium,"Segoe UI",system-ui,sans-serif;min-height:100vh}
+:root{--bg:#07080c;--sf:#0e1018;--ln:#1d2030;--tx:#e9ebf5;--mu:#8b90a6;--pk:#ff3d8b;--or:#ff9a3c;--cy:#2de2e6;--grad:linear-gradient(90deg,var(--pk),var(--or));--bgrgb:7,8,12;--sfrgb:14,16,24;--tx2:#c4c8dc}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{background:var(--bg);color:var(--tx);font:400 16px/1.6 Inter,system-ui,sans-serif;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
-button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--mag);outline-offset:2px}
-header{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:12px 28px;background:rgba(7,8,12,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.logo{justify-self:start;font-size:22px;font-weight:800;letter-spacing:.14em;color:var(--cyan);text-shadow:0 0 12px rgba(61,245,255,.6)}
-.logo b,.by b{color:var(--mag)}
-.by{padding:6px 18px;font-weight:700;font-size:14px;letter-spacing:.3em;white-space:nowrap;background:linear-gradient(90deg,rgba(61,245,255,.14),rgba(255,47,214,.14));clip-path:var(--cut-s)}
-.by b{text-shadow:0 0 10px rgba(255,47,214,.7)}
-.links{justify-self:end;display:flex;gap:4px}
-.links a{padding:7px 14px;color:var(--muted);font-weight:600}
-.links a:hover{color:var(--cyan)}
-.burger{display:none;justify-self:end;border:0;background:none;color:var(--text);font-size:24px;cursor:pointer}
-.hero{max-width:1200px;margin:0 auto;padding:64px 28px 0;display:grid;grid-template-columns:1.1fr .9fr;gap:44px;align-items:center}
-.tag{color:var(--cyan);font-weight:700;letter-spacing:.22em;font-size:13px}
-h1{font-size:clamp(38px,6vw,68px);line-height:1.02;font-weight:800;letter-spacing:.02em;margin:14px 0}
-.lead{color:var(--muted);max-width:46ch;line-height:1.6}
-.cta{display:flex;gap:12px;flex-wrap:wrap;margin:26px 0}
-.btn{display:inline-block;padding:12px 26px;border:0;font:inherit;font-weight:800;letter-spacing:.06em;cursor:pointer;background:linear-gradient(135deg,var(--cyan),#7cf9ff);color:var(--void);clip-path:var(--cut-s);transition:filter .2s}
-.btn.ghost{background:rgba(255,255,255,.08);color:var(--text)}
-.btn:hover{filter:brightness(1.2)}
-.stat{display:flex;align-items:baseline;gap:12px}
-.stat b{font-size:42px;font-weight:800;color:var(--cyan);text-shadow:0 0 14px rgba(61,245,255,.5)}
-.stat span{color:var(--muted)}
-.feat{aspect-ratio:4/3}
-.feat:empty{display:grid;place-items:center;background:var(--panel);color:var(--muted);clip-path:var(--cut)}
-.feat:empty::before{content:"Memuat game..."}
-.featcard{position:relative;width:100%;height:100%;border:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:22px;text-align:left;color:inherit;font:inherit;cursor:pointer;background:linear-gradient(135deg,var(--cyan),var(--mag));clip-path:var(--cut);transition:transform .2s}
-.featcard:hover{transform:translateY(-4px)}
-.featcard img{position:absolute;inset:2px;width:calc(100% - 4px);height:calc(100% - 4px);object-fit:cover;background:var(--panel);clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px)}
-.featcard::after{content:"";position:absolute;inset:2px;background:linear-gradient(transparent 35%,rgba(7,8,12,.94))}
-.featcard>:not(img){position:relative;z-index:1}
-.featcard small{color:var(--cyan);font-weight:700;letter-spacing:.2em;font-size:12px}
-.featcard strong{font-size:26px}
-.featcard .btn{align-self:flex-start;margin-top:6px}
-.sec{max-width:1200px;margin:0 auto;padding:84px 28px 0}
-.eyebrow{color:var(--cyan);font-weight:700;letter-spacing:.2em;font-size:13px}
-h2{font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:.04em;margin:6px 0 8px}
-.sub{color:var(--muted);max-width:60ch;line-height:1.6}
-.tools{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin:24px 0 18px}
-.search{flex:0 1 300px}
-.search input{width:100%;padding:10px 16px;border:1px solid rgba(61,245,255,.4);border-radius:0;background:var(--panel);color:var(--text);font:inherit;clip-path:var(--cut-s)}
-.search input:focus{outline:none;border-color:var(--cyan);box-shadow:inset 0 0 14px rgba(61,245,255,.3)}
-nav{display:flex;gap:8px;flex-wrap:wrap;flex:1}
-nav button{display:flex;align-items:center;gap:8px;border:0;padding:8px 14px;font:inherit;font-weight:600;cursor:pointer;color:var(--muted);background:rgba(255,255,255,.06);clip-path:var(--cut-s);animation:chip .4s backwards;animation-delay:calc(var(--i)*40ms);transition:background .2s,color .2s}
-@keyframes chip{from{opacity:0;transform:translateY(8px)}}
-nav button em{font-style:normal;font-size:12px;opacity:.7}
-nav button:hover{color:var(--text);background:rgba(255,47,214,.2)}
-nav button.on{background:linear-gradient(135deg,var(--cyan),#7cf9ff);color:var(--void)}
-.note{background:var(--panel);border:1px solid var(--mag);padding:12px 16px;margin-bottom:16px;color:var(--muted);font-size:15px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));grid-auto-flow:dense;gap:14px}
-.tile{position:relative;aspect-ratio:1;border:0;padding:0;cursor:pointer;color:inherit;font:inherit;display:block;text-align:left;background:linear-gradient(135deg,var(--cyan),var(--mag));clip-path:var(--cut);transition:transform .15s}
-.fx .tile{animation:pop .4s backwards;animation-delay:calc(min(var(--i),20)*25ms)}
-@keyframes pop{from{opacity:0;transform:scale(.85)}}
-.tile:nth-child(11n+1){grid-column:span 2;grid-row:span 2}
-.tile img{position:absolute;inset:2px;width:calc(100% - 4px);height:calc(100% - 4px);object-fit:cover;background:var(--panel);clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px)}
-.tile span{position:absolute;inset:auto 2px 2px 2px;padding:26px 10px 8px;font-weight:700;font-size:14px;line-height:1.15;letter-spacing:.03em;background:linear-gradient(transparent,rgba(7,8,12,.95))}
-.tile:hover{transform:translateY(-4px);background:linear-gradient(135deg,var(--mag),var(--cyan))}
-.tile:hover img{filter:brightness(1.15) saturate(1.25)}
-.more{display:block;margin:28px auto 0}
-.msg{color:var(--muted);padding:30px 0}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:26px}
-.card{padding:24px;background:var(--panel);border-left:3px solid var(--cyan);clip-path:var(--cut);transition:border-color .2s,background .2s}
-.card:hover{border-left-color:var(--mag);background:#131826}
-.card h3{font-size:18px;margin-bottom:8px}
-.card p{color:var(--muted);line-height:1.6;font-size:15px}
-footer{margin-top:90px;padding:28px;text-align:center;color:var(--muted);border-top:1px solid var(--line);font-size:14px;line-height:1.7}
-footer b{color:var(--cyan)}
-dialog{border:1px solid var(--cyan);padding:0;background:var(--void);color:var(--text);width:min(1100px,96vw);height:min(780px,92vh);overflow:hidden;box-shadow:0 0 40px rgba(61,245,255,.35)}
-dialog[open]{display:flex;flex-direction:column}
-dialog::backdrop{background:rgba(2,3,10,.88);backdrop-filter:blur(4px)}
-.bar{display:flex;gap:8px;align-items:center;padding:8px 12px;background:var(--panel);border-bottom:1px solid rgba(61,245,255,.35)}
-.bar h2{font-size:18px;flex:1;margin:0;letter-spacing:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--cyan)}
-.bar .btn{padding:5px 16px}
-.bar .x{background:var(--mag);color:var(--text)}
-iframe{flex:1;width:100%;border:0;background:#000}
-@media(max-width:760px){header{grid-template-columns:auto 1fr auto;padding:10px 14px;gap:8px}.logo{font-size:18px}.by{justify-self:center;font-size:11px;letter-spacing:.18em;padding:5px 10px}.burger{display:block}
-.links{position:absolute;top:100%;left:0;right:0;flex-direction:column;display:none;background:var(--void);padding:8px 14px 14px;border-bottom:1px solid var(--line)}.links.open{display:flex}
-.hero{grid-template-columns:1fr;padding:36px 16px 0;gap:28px}.sec{padding:60px 16px 0}.search{flex:1 1 100%}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;scroll-behavior:auto}.tile:hover,.featcard:hover{transform:none}}
-.ad,.adtile{position:relative;display:flex;align-items:center;gap:20px;padding:18px 26px;color:var(--text);background:linear-gradient(135deg,var(--g1),var(--g2));clip-path:var(--cut);animation:adin .5s}
-@keyframes adin{from{opacity:0;transform:translateY(-6px)}}
-.ad{margin-bottom:18px}
-.ad::before,.adtile::before{content:"";position:absolute;inset:2px;background:#0b0e18;clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px)}
-.ad::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(100deg,transparent 40%,rgba(255,255,255,.12) 50%,transparent 60%);transform:translateX(-100%);animation:shine 3.5s ease-in-out infinite}
-@keyframes shine{to{transform:translateX(100%)}}
-.ad>*,.adtile>*{position:relative;z-index:1}
-.ad div{flex:1}
-.ad strong,.adtile strong{display:block;font-size:20px;line-height:1.15}
-.ad p,.adtile p{color:var(--muted);font-size:14px;margin-top:2px}
-.ad small,.adtile small,.slim small{align-self:flex-start;font-size:11px;letter-spacing:.2em;padding:2px 8px;border:1px solid var(--g1);color:var(--g1)}
-.ad em,.adtile em,.slim em{font-style:normal;background:var(--g1)}
-.adtile{flex-direction:column;align-items:stretch;justify-content:space-between;gap:8px;padding:16px;text-align:left}
-.adtile strong{font-size:16px}.adtile p{display:none}.adtile em{align-self:flex-start}
-.tile.adtile:hover{background:linear-gradient(135deg,var(--g2),var(--g1))}
-.slim{display:flex;align-items:center;gap:12px;padding:6px 14px;background:var(--panel);border-top:1px solid rgba(61,245,255,.35);font-size:13px;color:var(--muted)}
-.slim strong{flex:1;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.slim em{padding:3px 12px;font-size:12px}
-@media(max-width:760px){.ad{flex-wrap:wrap;gap:10px;padding:14px 18px}.ad div{flex:1 1 100%}}
+h1,h2,h3,h4,.btn,nav a,.brand{font-family:Rajdhani,Inter,sans-serif}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+.site-bg{position:fixed;inset:0;z-index:-1;background:linear-gradient(rgba(var(--bgrgb),.88),rgba(var(--bgrgb),.95)),radial-gradient(circle at 80% 0,#3a0f2e,transparent 55%),var(--bg)}
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 28px;transition:.3s}
+.nav.solid{background:rgba(var(--bgrgb),.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--ln)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:22px;letter-spacing:.06em}
+.brand img{width:34px;height:34px;object-fit:contain}
+.brand span{display:flex;flex-direction:column;line-height:1}
+.brand small{font-size:11px;letter-spacing:.3em;color:var(--pk);font-weight:600}
+#menu{display:flex;gap:6px}
+#menu a{padding:6px 14px;border-radius:99px;font-weight:600;color:var(--mu);transition:.2s}
+#menu a:hover,#menu a.on{color:var(--tx);background:rgba(255,61,139,.15)}
+.nav-r{display:flex;align-items:center;gap:12px}
+.ver{font-size:13px;color:var(--mu);border:1px solid var(--ln);padding:2px 10px;border-radius:99px}
+#burger{display:none;background:none;border:1px solid var(--ln);color:var(--tx);font-size:20px;padding:2px 10px;border-radius:8px;cursor:pointer}
+/* buttons */
+.btn{display:inline-block;background:var(--grad);color:#14060c;font-weight:700;font-size:17px;letter-spacing:.04em;padding:12px 26px;border-radius:10px;border:0;cursor:pointer;transition:.2s;box-shadow:0 0 24px rgba(255,61,139,.35)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 0 36px rgba(255,61,139,.6)}
+.btn.sm{padding:7px 18px;font-size:15px}
+.btn.ghost{background:rgba(255,255,255,.06);color:var(--tx);border:1px solid var(--ln);box-shadow:none}
+.btn.ghost:hover{border-color:var(--pk);box-shadow:none}
+:focus-visible{outline:2px solid var(--cy);outline-offset:3px}
+/* hero */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:110px 0 60px}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(180deg,rgba(var(--bgrgb),.55),var(--bg)),linear-gradient(160deg,#2a0b3a,#ff3d8b55 55%,#ff9a3c33)}
+.hero-in{position:relative;text-align:center}
+h1{font-size:clamp(44px,9vw,104px);line-height:.95;letter-spacing:.04em;background:linear-gradient(180deg,#fff,#ffb3d1 60%,var(--pk));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 28px rgba(255,61,139,.5))}
+.tag{margin-top:14px;font:600 20px Rajdhani;letter-spacing:.35em;color:var(--cy)}
+.lead{max-width:600px;margin:18px auto 28px;color:var(--tx2)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:30px 0}
+.pills span{font-size:13px;padding:4px 14px;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid var(--ln);color:var(--tx2)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#2cff8a;margin-right:8px;box-shadow:0 0 10px #2cff8a;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.ipbox{display:flex;align-items:center;gap:18px;justify-content:space-between;flex-wrap:wrap;text-align:left;max-width:760px;margin:0 auto;padding:18px 22px;background:rgba(var(--sfrgb),.8);border:1px solid var(--ln);border-radius:14px;backdrop-filter:blur(8px)}
+.ipbox b{font:700 18px Rajdhani}.ipbox p{font-size:13px;color:var(--mu)}
+.ipbox code{font:600 20px ui-monospace,monospace;color:var(--cy);background:#000;padding:8px 16px;border-radius:8px}
+/* sections */
+.sec{padding:90px 0}
+.eyebrow{color:var(--pk);font:600 14px Rajdhani;letter-spacing:.3em;text-transform:uppercase;text-align:center}
+h2{font-size:clamp(32px,5vw,52px);text-align:center;letter-spacing:.05em;line-height:1.1}
+.sub{max-width:620px;margin:12px auto 40px;text-align:center;color:var(--mu)}
+.grid{display:grid;gap:20px}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:linear-gradient(180deg,rgba(18,20,30,.9),rgba(11,12,18,.9));border:1px solid var(--ln);border-radius:16px;padding:26px;transition:.25s}
+.card:hover{border-color:var(--pk);transform:translateY(-4px);box-shadow:0 12px 40px rgba(255,61,139,.15)}
+.card h3{font-size:24px;letter-spacing:.04em;margin-bottom:8px}
+.card p{color:var(--mu);font-size:15px}
+.card small{display:block;color:var(--cy);font:600 13px Rajdhani;letter-spacing:.2em;text-transform:uppercase;margin-bottom:6px}
+.card h4{font-size:15px;color:var(--mu);font-weight:600}
+.trailer{display:flex;align-items:center;gap:20px;width:100%;margin-bottom:24px;aspect-ratio:16/7;min-height:200px;padding:28px;border:1px solid var(--ln);border-radius:18px;cursor:pointer;color:var(--tx);text-align:left;position:relative;overflow:hidden;background:linear-gradient(90deg,rgba(var(--bgrgb),.8),transparent),url(images/trailer-poster.png) center/cover,linear-gradient(120deg,#1a0b2e,#ff3d8b44,#2de2e633)}
+.trailer b{display:block;font:700 26px Rajdhani;letter-spacing:.05em}.trailer small{color:var(--tx2)}
+.trailer em{position:absolute;right:20px;bottom:16px;font-style:normal;font-size:13px;background:rgba(0,0,0,.6);padding:3px 10px;border-radius:6px}
+.play{flex:none;width:68px;height:68px;border-radius:50%;display:grid;place-items:center;background:var(--grad);color:#14060c;font-size:24px;box-shadow:0 0 30px var(--pk);transition:.2s}
+.trailer:hover .play{transform:scale(1.1)}
+/* gallery */
+.gal{display:grid;gap:16px;grid-template-columns:2fr 1fr;grid-template-rows:240px 240px}
+.shot{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--ln);display:flex;align-items:flex-end;background-size:cover!important}
+.s1{grid-row:span 2;background:linear-gradient(transparent 40%,rgba(var(--bgrgb),.9)),url(images/gameplay-launcher.png) center/cover,linear-gradient(135deg,#2a0b3a,#ff3d8b66)}
+.s2{background:linear-gradient(transparent 30%,rgba(var(--bgrgb),.9)),url(images/gameplay-night.png) center/cover,linear-gradient(135deg,#0b1a3a,#2de2e655)}
+.s3{background:linear-gradient(transparent 30%,rgba(var(--bgrgb),.9)),url(images/gameplay-settings.png) center/cover,linear-gradient(135deg,#3a1a0b,#ff9a3c55)}
+.shot figcaption{padding:18px}.shot small{color:var(--cy);font:600 12px Rajdhani;letter-spacing:.2em;text-transform:uppercase}
+.shot h3{font-size:28px}.shot h4{font-size:20px;color:var(--tx)}
+/* community */
+.com h3{font-size:28px;margin:4px 0 12px}.com ul{margin:14px 0 20px 18px;color:var(--mu);font-size:15px}
+.stats{display:flex;gap:40px;margin:18px 0 22px}.stats b{font:700 34px Rajdhani;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.wa small{color:#2cff8a}
+/* download */
+.dl p{margin:4px 0;padding-left:18px;position:relative}.dl p:before{content:"✓";position:absolute;left:0;color:var(--cy)}
+.dl .btn{margin:22px 0 10px;display:block;text-align:center}.dl em{font-size:13px;color:var(--mu);font-style:normal}
+.note{text-align:center;margin-top:26px;color:var(--mu);font-size:14px}
+/* footer */
+.foot{border-top:1px solid var(--ln);padding:44px 0;text-align:center;background:rgba(0,0,0,.4)}
+.foot .brand{justify-content:center;margin-bottom:10px}.foot p{color:var(--mu)}
+.foot nav{display:flex;flex-wrap:wrap;gap:6px 22px;justify-content:center;margin:20px 0;font-weight:600}.foot nav a:hover{color:var(--pk)}
+.foot>div>small{color:var(--mu);font-size:12px}
+.toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,30px);background:var(--sf);border:1px solid var(--pk);padding:10px 20px;border-radius:10px;opacity:0;pointer-events:none;transition:.3s;z-index:99}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+/* responsive */
+@media(max-width:900px){
+ .g3{grid-template-columns:1fr 1fr}.gal{grid-template-columns:1fr;grid-template-rows:auto}.shot{min-height:220px}.s1{grid-row:auto}
+ #burger{display:block}.ver{display:none}
+ #menu{position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(var(--bgrgb),.97);padding:10px 20px 18px;border-bottom:1px solid var(--ln);display:none}
+ #menu.open{display:flex}}
+@media(max-width:620px){.g3,.g2{grid-template-columns:1fr}.nav{padding:10px 16px}.nav .btn{display:none}.trailer{flex-direction:column;align-items:flex-start;aspect-ratio:auto}.sec{padding:64px 0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+/* ===== tambahan: halaman game Roblox ===== */
+.ava{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--pk);background:var(--sf)}
+.ipbox>div{flex:1;min-width:180px}
+.games{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.gcard{padding:0;overflow:hidden;display:flex;flex-direction:column}
+.cover{aspect-ratio:16/10;display:grid;place-items:center;font-size:44px;background:linear-gradient(135deg,#2a0b3a,#ff3d8b66,#ff9a3c44);position:relative}
+.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.gbody{padding:18px 20px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.gbody h3{font-size:22px;margin:0}.gbody p{flex:1}
+.meta{font-size:13px;color:var(--cy)}
+.empty{grid-column:1/-1;text-align:center;color:var(--mu)}
+.pills b{color:var(--pk);font-weight:600}
+/* ===== LUXE LAYER: tampilan premium ===== */
+@property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
+:root{--bd:rgba(255,255,255,.09);--cur:cubic-bezier(.2,.7,.2,1)}
+::selection{background:var(--pk);color:#fff}
+::-webkit-scrollbar{width:10px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:linear-gradient(var(--pk),var(--or));border-radius:9px}
+.site-bg::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:56px 56px;-webkit-mask:radial-gradient(ellipse at 50% 30%,#000,transparent 75%);mask:radial-gradient(ellipse at 50% 30%,#000,transparent 75%)}
+.orbs{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.orbs i{position:absolute;width:46vmax;height:46vmax;border-radius:50%;filter:blur(110px);opacity:.26;animation:drift 22s ease-in-out infinite alternate}
+.orbs i:nth-child(1){background:var(--pk);top:-15%;left:-10%}
+.orbs i:nth-child(2){background:var(--cy);bottom:-20%;right:-12%;animation-duration:28s}
+.orbs i:nth-child(3){background:var(--or);top:35%;left:42%;opacity:.14;animation-duration:34s}
+@keyframes drift{to{transform:translate(8vw,6vh) scale(1.15)}}
+.glow{position:fixed;left:0;top:0;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;background:radial-gradient(circle,rgba(255,61,139,.13),transparent 65%);transform:translate(var(--mx,50vw),var(--my,30vh));pointer-events:none;z-index:60;mix-blend-mode:screen}
+@media(hover:none){.glow{display:none}}
+#bar{position:fixed;top:0;left:0;right:0;height:3px;background:var(--grad);transform-origin:0 50%;transform:scaleX(0);z-index:100;box-shadow:0 0 12px var(--pk)}
+/* navbar kaca */
+.nav{top:14px;left:50%;right:auto;width:min(1120px,calc(100% - 28px));transform:translateX(-50%);padding:8px 10px 8px 24px;border-radius:99px;background:rgba(var(--sfrgb),.5);border:1px solid var(--bd);backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);box-shadow:0 10px 40px rgba(0,0,0,.35)}
+.nav.solid{background:rgba(10,11,18,.82);border:1px solid var(--bd)}
+#menu a.on{box-shadow:inset 0 0 0 1px rgba(255,61,139,.4)}
+/* tombol */
+.btn{position:relative;overflow:hidden}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(-120%)}
+.btn:hover::after{transform:translateX(120%);transition:transform .7s}
+.btn.ghost{background:rgba(255,255,255,.05);backdrop-filter:blur(8px)}
+/* hero */
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:180px;background:linear-gradient(transparent,var(--bg))}
+.hero-in>*{animation:rise .9s var(--cur) both}
+.hero-in>:nth-child(2){animation-delay:.1s}.hero-in>:nth-child(3){animation-delay:.2s}.hero-in>:nth-child(4){animation-delay:.3s}.hero-in>:nth-child(5){animation-delay:.4s}.hero-in>:nth-child(6){animation-delay:.5s}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}}
+h1{font-size:clamp(46px,10vw,120px);background:linear-gradient(110deg,#fff 15%,#ffb3d1 35%,var(--pk) 50%,var(--or) 65%,#fff 85%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;animation:rise .9s var(--cur) both,shine 7s linear infinite}
+@keyframes shine{from{background-position:200% 0}to{background-position:-50% 0}}
+.tag{letter-spacing:.5em;text-shadow:0 0 18px rgba(45,226,230,.6)}
+.pills span{background:rgba(255,255,255,.05);backdrop-filter:blur(8px);border-color:var(--bd);padding:6px 16px}
+.ipbox{gap:20px;padding:20px 24px;border:1px solid transparent;border-radius:22px;background:linear-gradient(#0d0f18,#0d0f18) padding-box,conic-gradient(from var(--a),var(--pk),var(--cy),var(--or),var(--pk)) border-box;animation:rise .9s var(--cur) .6s both,spin 7s linear infinite;box-shadow:0 20px 60px rgba(255,61,139,.12)}
+@keyframes spin{to{--a:360deg}}
+.ava{width:84px;height:84px;box-shadow:0 0 0 5px rgba(255,61,139,.18),0 0 34px rgba(255,61,139,.55)}
+.ipbox b{font-size:24px}
+/* marquee */
+.marquee{overflow:hidden;border-block:1px solid var(--bd);background:rgba(255,255,255,.025);padding:16px 0;-webkit-mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+#mq{display:flex;width:max-content;animation:mq 32s linear infinite}
+#mq span{font:700 26px Rajdhani;letter-spacing:.08em;color:var(--mu);white-space:nowrap;padding:0 28px;display:flex;align-items:center;gap:56px}
+#mq span::after{content:"✦";color:var(--pk);font-size:16px}
+@keyframes mq{to{transform:translateX(-50%)}}
+/* judul section */
+.eyebrow{display:table;margin:0 auto 16px;padding:5px 18px;border:1px solid rgba(255,61,139,.35);background:rgba(255,61,139,.08);border-radius:99px;font-size:12px;letter-spacing:.22em}
+h2{background:linear-gradient(180deg,#fff,#c9cde0);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2::after{content:"";display:block;width:64px;height:3px;margin:16px auto 0;border-radius:3px;background:var(--grad);box-shadow:0 0 14px var(--pk)}
+/* kartu kaca */
+.card{position:relative;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid var(--bd);border-radius:22px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 14px 40px rgba(0,0,0,.35)}
+.card::before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(320px circle at var(--x,50%) var(--y,0),rgba(255,61,139,.2),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover::before{opacity:1}
+.card:hover{border-color:rgba(255,61,139,.45)}
+.ic{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;margin-bottom:16px;background:linear-gradient(135deg,rgba(255,61,139,.35),rgba(255,154,60,.2));border:1px solid rgba(255,61,139,.4);box-shadow:0 0 24px rgba(255,61,139,.25)}
+.ic svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+/* kartu game */
+.gcard{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transform-style:preserve-3d}
+.gcard:hover{transform:perspective(900px) translateY(-8px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));border-color:transparent;background:linear-gradient(#0d0f18,#0d0f18) padding-box,conic-gradient(from var(--a),var(--pk),var(--cy),var(--or),var(--pk)) border-box;animation:spin 4s linear infinite;box-shadow:0 24px 60px rgba(255,61,139,.25)}
+.cover{overflow:hidden;aspect-ratio:4/3}
+.cover img{transition:transform .6s var(--cur)}
+.gcard:hover .cover img{transform:scale(1.1)}
+.cover::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(13,15,24,.95))}
+.gbody{gap:10px}
+.gbody small{align-self:flex-start;padding:2px 12px;border-radius:99px;background:rgba(45,226,230,.1);border:1px solid rgba(45,226,230,.3);margin:0}
+.meta{display:flex;align-items:center;gap:6px}.meta::before{content:"●";color:#2cff8a;font-size:9px}
+.gcard .btn{text-align:center;margin-top:6px;padding:10px}.gcard .btn::before{content:"▶  "}
+/* kontak & footer */
+.com{padding:34px}.com h3{font-size:32px}
+.foot{position:relative;border-top:0;background:linear-gradient(transparent,rgba(255,61,139,.06))}
+.foot::before{content:"";position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--pk),var(--cy),transparent)}
+/* reveal saat scroll (kelas ditambah via JS) */
+.rv{opacity:0;translate:0 26px}
+.rv.in{opacity:1;translate:0 0}
+.sec .rv:not(.card){transition:opacity .8s var(--cur),translate .8s var(--cur)}
+.card.rv{transition:opacity .8s var(--cur) var(--d,0s),translate .8s var(--cur) var(--d,0s),transform .3s,border-color .3s,box-shadow .3s}
+@media(max-width:900px){#menu{top:calc(100% + 10px);border-radius:22px;border:1px solid var(--bd)}}
+@media(max-width:620px){.nav{top:8px;padding:8px 10px 8px 18px}.tag{letter-spacing:.3em}.ipbox{flex-direction:column;text-align:center}.ipbox>div{text-align:center}}
+/* ===== IKON ===== */
+[hidden]{display:none!important}
+.i{width:1.15em;height:1.15em;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.2em;flex:none}
+.i.f{fill:currentColor;stroke-width:1}
+.btn .i{margin-right:8px}.btn .i:last-child{margin:0 0 0 8px}
+#menu a .i{margin-right:7px;opacity:.75}#menu a.on .i,#menu a:hover .i{opacity:1;color:var(--pk)}
+.logo{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:var(--grad);color:#14060c;box-shadow:0 0 22px rgba(255,61,139,.5)}
+.logo .i{width:23px;height:23px;stroke-width:2.2}
+.eyebrow .i{margin-right:8px;vertical-align:-.25em}
+.pills span{display:inline-flex;align-items:center;gap:8px}.pills .i{color:var(--pk)}
+.cover .i.big{position:relative;width:58px;height:58px;stroke-width:1.3;color:rgba(255,255,255,.85);filter:drop-shadow(0 0 14px var(--pk))}
+.meta::before,.gcard .btn::before{content:none}
+.meta .i{color:var(--cy);width:1.05em;height:1.05em}
+.com .ic .i,.ic .i{width:24px;height:24px;stroke:#fff}
+.soc{display:flex;gap:12px;justify-content:center;margin:20px 0 6px}
+.soc a{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.05);border:1px solid var(--bd);color:var(--tx);transition:.25s}
+.soc a:hover{background:var(--grad);color:#14060c;transform:translateY(-4px);box-shadow:0 8px 24px rgba(255,61,139,.5)}
+.soc .i{width:21px;height:21px}
+/* ===== ikon brand Discord & Roblox ===== */
+.i.b{fill:currentColor;stroke:none}
+.ic .i.b{fill:#fff;stroke:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn .i,.btn .i:last-child{margin:0}
+.soc a[href*="discord"]:hover,.soc a:hover{color:#14060c}
+
+/* ===== bio: gaya panel (disalin dari halaman link-in-bio) ===== */
+.bio-ov .prof{text-align:center}.bio-ov .prof>*{animation:rise .9s var(--cur) both;animation-delay:calc(var(--n,0)*.09s)}.bio-ov .prof>:nth-child(2){--n:1}.bio-ov .prof>:nth-child(3){--n:2}.bio-ov .prof>:nth-child(4){--n:3}.bio-ov .prof>:nth-child(5){--n:4}.bio-ov .ring{width:136px;height:136px;margin:0 auto 18px;padding:4px;border-radius:50%;background:conic-gradient(from var(--a),var(--pk),var(--cy),var(--or),var(--pk));animation:rise .9s var(--cur) both,spin 6s linear infinite;box-shadow:0 0 50px rgba(255,61,139,.4)}.bio-ov .ring img{width:100%;height:100%;border-radius:50%;object-fit:cover;background:var(--sf);border:4px solid var(--bg)}.bio-ov .bname{font:700 44px/1.05 Rajdhani,sans-serif;letter-spacing:.04em;background:linear-gradient(110deg,#fff 15%,#ffb3d1 38%,var(--pk) 52%,var(--or) 66%,#fff 88%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:rise .9s var(--cur) .09s both,shine 7s linear infinite}.bio-ov .user{color:var(--cy);font-weight:500;margin-top:2px}.bio-ov .bio{color:var(--tx2);max-width:36ch;margin:12px auto 0}.bio-ov .soc{display:flex;justify-content:center;gap:12px;margin-top:20px}.bio-ov .soc a{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.05);border:1px solid var(--bd);backdrop-filter:blur(10px);transition:.25s}.bio-ov .soc a:hover{background:var(--grad);color:#14060c;transform:translateY(-4px);box-shadow:0 8px 24px rgba(255,61,139,.5)}.bio-ov .soc .i{width:21px;height:21px}.bio-ov .links{display:flex;flex-direction:column;gap:14px;margin-top:30px}.bio-ov .lk{position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:20px;background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(255,255,255,.02));border:1px solid var(--bd);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 10px 30px rgba(0,0,0,.3);transition:transform .3s var(--cur),border-color .3s,box-shadow .3s;animation:rise .8s var(--cur) both;animation-delay:calc(.45s + var(--n)*.08s)}.bio-ov .lk::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.16) 50%,transparent 70%);transform:translateX(-120%)}.bio-ov a.lk:hover{transform:translateY(-4px);border-color:rgba(255,61,139,.6);box-shadow:0 16px 40px rgba(255,61,139,.22)}.bio-ov a.lk:hover::after{transform:translateX(120%);transition:transform .8s}.bio-ov .lic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;flex:none;background:linear-gradient(135deg,rgba(255,61,139,.35),rgba(255,154,60,.2));border:1px solid rgba(255,61,139,.4);box-shadow:0 0 22px rgba(255,61,139,.22)}.bio-ov .lic .i{width:24px;height:24px;color:#fff}.bio-ov .lt{flex:1;min-width:0;text-align:left}.bio-ov .lt b{display:block;font:700 20px/1.2 Rajdhani,sans-serif;letter-spacing:.03em}.bio-ov .lt small{color:var(--mu);font-size:13px}.bio-ov .arr{color:var(--mu);transition:.25s}.bio-ov a.lk:hover .arr{color:var(--pk);transform:translateX(4px)}.bio-ov .lk.feat{background:var(--grad);color:#14060c;border-color:transparent;box-shadow:0 0 36px rgba(255,61,139,.45);padding:18px}.bio-ov .lk.feat .lic{background:rgba(20,6,12,.2);border-color:rgba(20,6,12,.25);box-shadow:none}.bio-ov .lk.feat .lic .i{color:#14060c}.bio-ov .lk.feat small,.bio-ov .lk.feat .arr{color:rgba(20,6,12,.75)}.bio-ov a.lk.feat:hover{border-color:transparent;box-shadow:0 0 56px rgba(255,61,139,.7)}.bio-ov .lk.off{opacity:.5}.bio-ov .soon{font-size:11px;padding:2px 10px;border-radius:99px;border:1px solid var(--bd);color:var(--mu);white-space:nowrap}.bio-ov .share{display:flex;align-items:center;gap:8px;margin:26px auto 0;padding:10px 22px;border-radius:99px;border:1px solid var(--bd);background:rgba(255,255,255,.05);color:var(--tx);font:600 16px Rajdhani,sans-serif;letter-spacing:.04em;cursor:pointer;transition:.25s}.bio-ov .share:hover{border-color:var(--pk);box-shadow:0 0 24px rgba(255,61,139,.35)}.bio-ov .foot{margin-top:34px;text-align:center;color:var(--mu);font-size:12px}
+
+/* ===== BIO: tombol navbar + panel ===== */
+#menu .bio-link{display:inline-flex;align-items:center;gap:7px;padding:6px 16px;border-radius:99px;border:1px solid rgba(255,61,139,.55);background:rgba(255,61,139,.12);color:#fff;font:600 16px Rajdhani,sans-serif;cursor:pointer;transition:.25s}
+#menu .bio-link .i{color:var(--pk)}
+#menu .bio-link:hover{background:var(--grad);color:#14060c;box-shadow:0 0 22px rgba(255,61,139,.5)}#menu .bio-link:hover .i{color:#14060c}
+.bio-ov{position:fixed;inset:0;z-index:120;overflow-y:auto;display:flex;justify-content:center;padding:0 16px;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
+.bio-ov.open{opacity:1;visibility:visible}
+.bio-bg{position:fixed;inset:0;background:radial-gradient(circle at 80% 0,rgba(58,15,46,.9),transparent 55%),rgba(5,6,10,.93);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.bio-card{position:relative;width:min(520px,100%);padding:70px 0 40px;transform:translateY(24px) scale(.98);transition:transform .5s var(--cur)}
+.bio-ov.open .bio-card{transform:none}
+.bio-x{position:fixed;top:16px;right:16px;z-index:2;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.06);border:1px solid var(--bd);color:var(--tx);cursor:pointer;backdrop-filter:blur(10px);transition:.25s}
+.bio-x:hover{background:var(--grad);color:#14060c;transform:rotate(90deg)}
+.bio-ov:not(.open) .prof>*,.bio-ov:not(.open) .ring,.bio-ov:not(.open) .bname,.bio-ov:not(.open) .lk{animation:none}
+@media(max-width:420px){.bio-ov .bname{font-size:36px}}
+.toast{z-index:200}
+
+/* statistik live di kartu game */
+.gstat{display:flex;flex-wrap:wrap;gap:6px 14px}.gstat:empty{display:none}
+.meta.on{color:#2cff8a}.meta.on::before{content:"";width:8px;height:8px;border-radius:50%;background:#2cff8a;box-shadow:0 0 8px #2cff8a}
+
+/* tema terang, tombol tema/bahasa, widget Discord */
+:root[data-theme=light]{--bg:#f5f6fb;--sf:#fff;--ln:#dde0ee;--tx:#15182b;--mu:#586079;--cy:#0b8f96;--bd:rgba(20,24,43,.12);--bgrgb:245,246,251;--sfrgb:255,255,255;--tx2:#3a3f58;color-scheme:light}
+[data-theme=light] .bio-bg{background:radial-gradient(circle at 80% 0,rgba(255,61,139,.16),transparent 55%),rgba(245,246,251,.95)}
+[data-theme=light] .meta.on{color:#0a8f4d}[data-theme=light] .orbs i{opacity:.14}
+[hidden]{display:none!important}
+.tbtn{width:36px;height:36px;border-radius:50%;border:1px solid var(--bd);background:rgba(var(--sfrgb),.6);color:var(--tx);font:600 13px Rajdhani,sans-serif;cursor:pointer;transition:.2s}
+.tbtn:hover{border-color:var(--pk);color:var(--pk)}.tbtn:focus-visible{outline:2px solid var(--pk);outline-offset:2px}
+.dw{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:14px;color:var(--mu)}.dw b{color:var(--tx)}
+.dw i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#2cff8a;margin-right:6px}
+@media(max-width:560px){.nav-r .btn.sm{display:none}}
+
+/* ===== MainYuk (tambahan di atas gaya web Roblox) ===== */
+.nav{display:grid;grid-template-columns:1fr auto 1fr}
+.nav .brand{justify-self:start}.nav-r{justify-self:end}
+.by{font:700 15px Rajdhani,sans-serif;letter-spacing:.32em;padding:6px 20px;border-radius:99px;border:1px solid rgba(255,61,139,.35);background:rgba(255,61,139,.08);white-space:nowrap}
+.by b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700}
+@media(max-width:1040px){#burger{display:block}#menu{position:absolute;top:calc(100% + 10px);left:0;right:0;flex-direction:column;background:rgba(var(--bgrgb),.97);padding:10px 20px 18px;border:1px solid var(--bd);border-radius:22px;display:none}#menu.open{display:flex}}
+@media(max-width:620px){.nav{grid-template-columns:auto 1fr auto}.by{justify-self:center;font-size:12px;letter-spacing:.18em;padding:5px 12px}.brand small{display:none}}
+.tools{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:center;margin-bottom:26px}
+.sbox{flex:0 1 340px}
+.sbox input{width:100%;padding:11px 20px;border-radius:99px;border:1px solid var(--bd);background:rgba(var(--sfrgb),.6);backdrop-filter:blur(10px);color:var(--tx);font:500 15px Inter,sans-serif;transition:.25s}
+.sbox input:focus{outline:none;border-color:var(--pk);box-shadow:0 0 0 4px rgba(255,61,139,.15)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;flex:1 1 100%}
+.chips button{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:99px;border:1px solid var(--bd);background:rgba(255,255,255,.05);color:var(--tx2);font:600 15px Rajdhani,sans-serif;letter-spacing:.04em;cursor:pointer;transition:.25s;animation:rise .6s var(--cur) backwards;animation-delay:calc(var(--i)*40ms)}
+.chips button em{font-style:normal;font-size:12px;opacity:.65}
+.chips button:hover{border-color:var(--pk);color:var(--tx)}
+.chips button.on{background:var(--grad);color:#14060c;border-color:transparent;box-shadow:0 0 22px rgba(255,61,139,.4)}
+.gbody h3{flex:1;font-size:20px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.gcard{cursor:pointer}
+.gcard.adcard .cover{background:linear-gradient(135deg,var(--g1),var(--g2))}
+.adbar{display:flex;align-items:center;gap:18px;margin:0 0 24px;padding:16px 22px;border:1px solid transparent;border-radius:22px;background:linear-gradient(var(--sf),var(--sf)) padding-box,linear-gradient(110deg,var(--g1),var(--g2)) border-box;animation:rise .6s var(--cur);overflow:hidden}
+.adbar:hover{border-color:transparent}
+.adbar>div{flex:1}.adbar b{display:block;font:700 20px Rajdhani,sans-serif;letter-spacing:.03em}.adbar p{color:var(--mu);font-size:14px;line-height:1.4}
+.adbar .adtag{margin:0;padding:2px 12px;border-radius:99px;border:1px solid var(--g1);color:var(--g1);font:600 12px Rajdhani,sans-serif;letter-spacing:.22em}
+@media(max-width:620px){.adbar{flex-wrap:wrap;gap:10px}.adbar>div{flex:1 1 100%}}
+.pk{max-width:720px;margin:0 auto 22px;padding:16px 20px;border:1px solid rgba(255,61,139,.4);border-radius:16px;background:rgba(255,61,139,.08);color:var(--tx2);font-size:14px}
+.pk pre{white-space:pre-wrap;font-size:12px;margin-top:8px;color:var(--mu)}.pk input{margin-top:8px;color:var(--tx2)}
+.btn.more{display:flex;margin:32px auto 0}
+dialog{border:1px solid var(--bd);border-radius:22px;padding:0;background:rgba(var(--sfrgb),.98);color:var(--tx);width:min(1100px,96vw);height:min(780px,92vh);overflow:hidden;box-shadow:0 30px 100px rgba(0,0,0,.6),0 0 60px rgba(255,61,139,.2)}
+dialog[open]{display:flex;flex-direction:column;animation:rise .5s var(--cur)}
+dialog::backdrop{background:rgba(5,6,10,.85);backdrop-filter:blur(10px)}
+.pbar{display:flex;gap:10px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--bd)}
+.pbar strong{flex:1;font:700 22px Rajdhani,sans-serif;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+dialog iframe{flex:1;width:100%;border:0;background:#000}
+.slim{display:flex;align-items:center;gap:12px;padding:8px 16px;border-top:1px solid var(--bd);font-size:13px;color:var(--mu)}
+.slim small{padding:1px 10px;border-radius:99px;border:1px solid var(--g1);color:var(--g1);font:600 11px Rajdhani,sans-serif;letter-spacing:.2em}
+.slim strong{flex:1;color:var(--tx);font:700 16px Rajdhani,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
 </style>
 </head>
 <body>
-<header>
-  <a class="logo" href="#hero">MAIN<b>YUK</b></a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></symbol><symbol id="i-pad" viewBox="0 0 24 24"><path d="M6 8h12a4 4 0 0 1 4 4.5l-.7 4a2.5 2.5 0 0 1-4.3 1.2L15 15H9l-2 2.7a2.5 2.5 0 0 1-4.3-1.2L2 12.5A4 4 0 0 1 6 8z"/><path d="M7 10.5v3M5.5 12h3M16 11h.01M18 13h.01"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></symbol><symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></symbol><symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v8h14v-8M8 8a2.5 2.5 0 1 1 4-2 2.5 2.5 0 1 1 4 2"/></symbol><symbol id="i-discord" viewBox="0 0 24 24"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></symbol><symbol id="i-roblox" viewBox="0 0 24 24"><path d="M18.926 23.998 0 18.892 5.075 0 24 5.108zM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453 1.414-5.273z"/></symbol><symbol id="i-tiktok" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></symbol><symbol id="i-youtube" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></symbol><symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol><symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.1A8.4 8.4 0 1 1 21 11.5z"/><path d="M9 8.5c0 3.5 2.500 6 6 6l1.500-1.500-2-1-1 .8c-1-.4-2-1.400-2.400-2.400l.8-1-1-2z"/></symbol><symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol><symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.5l6.800-4M8.600 13.500l6.800 4"/></symbol><symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol><symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.700 0l3-3a4 4 0 0 0-5.700-5.700l-1 1"/><path d="M14 10a4 4 0 0 0-5.700 0l-3 3a4 4 0 0 0 5.700 5.700l1-1"/></symbol></svg>
+<div class="site-bg"></div><div class="orbs"><i></i><i></i><i></i></div><div class="glow" id="glow"></div><div id="bar"></div>
+<header class="nav" id="nav">
+  <a class="brand" href="#hero"><i class="logo"><svg class="i"><use href="#i-pad"/></svg></i><span><span>MAINYUK</span><small>GAME PORTAL</small></span></a>
   <div class="by">BY <b>PRABBBZ</b></div>
-  <div class="links" id="links"><a href="#hero">Home</a><a href="#games">Game</a><a href="#about">Tentang</a></div>
-  <button class="burger" id="burger" aria-label="Menu">&#9776;</button>
+  <div class="nav-r">
+    <nav id="menu"><a href="#hero"><svg class="i"><use href="#i-home"/></svg>Home</a><a href="#games"><svg class="i"><use href="#i-pad"/></svg>Game</a><a href="#about"><svg class="i"><use href="#i-info"/></svg>Tentang</a><a href="#contact"><svg class="i"><use href="#i-mail"/></svg>Kontak</a><button class="bio-link" id="bioBtn" type="button"><svg class="i"><use href="#i-link"/></svg>Bio</button></nav>
+    <button class="tbtn" id="themeBtn" type="button" aria-label="Theme">☀</button><button id="burger" aria-label="Menu">☰</button>
+  </div>
 </header>
 
 <section class="hero" id="hero">
-  <div>
-    <p class="tag">Main &bull; Santai &bull; Gratis</p>
-    <h1>GAME GRATIS,<br>LANGSUNG MAIN</h1>
-    <p class="lead">Pilih game favoritmu, klik, dan main langsung di browser. Tanpa unduh, tanpa ribet.</p>
-    <div class="cta"><a class="btn" href="#games">Lihat Game</a><button class="btn ghost" id="rand">Acak Game</button></div>
-    <div class="stat"><b id="count">0</b><span>Game gratis dimainkan</span></div>
+  <div class="hero-bg"></div>
+  <div class="wrap hero-in">
+    <h1>MAINYUK</h1>
+    <p class="tag">Main • Santai • Gratis</p>
+    <p class="lead">Pilih game favoritmu, klik Mainkan, dan langsung main di browser. Tanpa unduh, tanpa ribet.</p>
+    <div class="cta">
+      <a class="btn" href="#games"><svg class="i"><use href="#i-pad"/></svg>Lihat Game</a>
+      <button class="btn ghost" id="rand" type="button"><svg class="i"><use href="#i-gift"/></svg>Acak Game</button>
+      <a class="btn ghost" href="https://roblox-prabbbz.vercel.app/" target="_blank" rel="noopener"><svg class="i b"><use href="#i-roblox"/></svg>Web Roblox</a>
+    </div>
+    <div class="pills"><span><svg class="i"><use href="#i-pad"/></svg><b id="stGames">0</b> Game</span><span><svg class="i"><use href="#i-gift"/></svg>Gratis Dimainkan</span></div>
+    <div class="ipbox">
+      <img class="ava" id="fava" alt="">
+      <div><b id="fname">Memuat game…</b><p id="fsub">Game pilihan</p></div>
+      <button class="btn sm" id="fplay" type="button">Mainkan<svg class="i f"><use href="#i-play"/></svg></button>
+    </div>
   </div>
-  <div class="feat" id="feat"></div>
 </section>
 
-<section class="sec" id="games">
-  <p class="eyebrow">Koleksi Game</p>
-  <h2>DAFTAR GAME</h2>
-  <p class="sub">Semua game bisa langsung dimainkan di sini. Klik salah satu untuk membukanya.</p>
-  <div class="tools">
-    <div class="search"><input id="q" type="search" placeholder="Cari game..." aria-label="Cari game"></div>
-    <nav id="cats" aria-label="Kategori"></nav>
-  </div>
+<div class="marquee" aria-hidden="true"><div id="mq"></div></div>
+
+<section id="games" class="sec"><div class="wrap">
+  <p class="eyebrow"><svg class="i"><use href="#i-pad"/></svg>Koleksi Game</p><h2>DAFTAR GAME</h2>
+  <p class="sub">Semua game bisa langsung dimainkan di sini. Klik Mainkan untuk membukanya.</p>
+  <div class="tools"><div class="sbox"><input id="q" type="search" placeholder="Cari game..." aria-label="Cari game"></div><div class="chips" id="cats"></div></div>
   <div id="adslot"></div>
   <div id="note"></div>
-  <div class="grid" id="grid"></div>
-  <button class="btn more" id="more" hidden>Muat lebih banyak</button>
-</section>
+  <div class="games" id="gameList"><p class="empty">Memuat game…</p></div>
+  <button class="btn more" id="more" type="button" hidden>Muat lebih banyak</button>
+</div></section>
 
-<section class="sec" id="about">
-  <p class="eyebrow">Tentang</p>
-  <h2>KENAPA MAIN?</h2>
+<section id="about" class="sec"><div class="wrap">
+  <p class="eyebrow"><svg class="i"><use href="#i-info"/></svg>Tentang</p><h2>KENAPA MAIN?</h2>
   <p class="sub">MainYuk mengumpulkan game browser gratis dalam satu tempat supaya kamu bisa langsung main.</p>
-  <div class="cards">
-    <div class="card"><h3>Main Langsung</h3><p>Satu klik dari website ini dan game langsung terbuka di layarmu, tanpa instalasi.</p></div>
-    <div class="card"><h3>Banyak Perangkat</h3><p>Bisa dimainkan di HP, tablet, atau PC lewat browser apa saja.</p></div>
-    <div class="card"><h3>Banyak Pilihan</h3><p>Dari puzzle sampai balapan, cari kategori favoritmu atau klik Acak Game.</p></div>
+  <div class="grid g3">
+    <article class="card"><span class="ic"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><h3>Mainkan Langsung</h3><p>Satu klik dari website ini dan game langsung terbuka di layarmu, tanpa instalasi.</p></article>
+    <article class="card"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="14" height="10" rx="2"/><rect x="15" y="9" width="6" height="11" rx="1.5"/></svg></span><h3>Banyak Perangkat</h3><p>Bisa dimainkan di HP, tablet, atau PC lewat browser apa saja.</p></article>
+    <article class="card"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg></span><h3>Banyak Pilihan</h3><p>Dari puzzle sampai balapan, cari kategori favoritmu atau klik Acak Game.</p></article>
   </div>
-</section>
+</div></section>
 
-<footer>
-  <p>&copy; 2026 MainYuk by <b>prabbbz</b></p>
-  <p>Game disediakan oleh Playgama. Situs ini tidak berafiliasi dengan Playgama.</p>
-</footer>
+<section id="contact" class="sec"><div class="wrap">
+  <p class="eyebrow"><svg class="i"><use href="#i-mail"/></svg>Kontak</p><h2>TERHUBUNG DENGANKU</h2>
+  <p class="sub">Mampir ke web Roblox-ku dan gabung komunitasnya.</p>
+  <div class="grid g2">
+    <article class="card com"><span class="ic"><svg class="i b"><use href="#i-roblox"/></svg></span><small>Roblox</small><h3>WEB ROBLOX</h3><p>Lihat game Roblox buatanku, profil, dan info terbaru.</p><br><a class="btn" href="https://roblox-prabbbz.vercel.app/" target="_blank" rel="noopener"><svg class="i"><use href="#i-ext"/></svg>Kunjungi Web</a></article>
+    <article class="card com"><span class="ic"><svg class="i b"><use href="#i-discord"/></svg></span><small>Komunitas</small><h3>SERVER DISCORD</h3><p>Ngobrol dengan pemain lain, kasih saran, dan dapatkan info update.</p><p class="dw" id="dw" hidden></p><br><a class="btn" href="https://discord.gg/pe3tb2dZCU" target="_blank" rel="noopener"><svg class="i b"><use href="#i-discord"/></svg>Join Discord</a></article>
+  </div>
+</div></section>
 
+<footer class="foot"><div class="wrap">
+  <div class="brand"><i class="logo"><svg class="i"><use href="#i-pad"/></svg></i><span>MAINYUK</span></div>
+  <p>Game online gratis by prabbbz.</p>
+  <div class="soc"><a href="https://roblox-prabbbz.vercel.app/" target="_blank" rel="noopener" aria-label="Web Roblox"><svg class="i b"><use href="#i-roblox"/></svg></a><a href="https://discord.gg/pe3tb2dZCU" target="_blank" rel="noopener" aria-label="Discord"><svg class="i b"><use href="#i-discord"/></svg></a></div>
+  <small>© 2026 MainYuk by prabbbz. Game disediakan oleh Playgama. Situs ini tidak berafiliasi dengan Playgama.</small>
+</div></footer>
+
+<div class="bio-ov" id="bio" role="dialog" aria-modal="true" aria-label="Bio" aria-hidden="true">
+  <div class="bio-bg"></div>
+  <button class="bio-x" id="bioX" type="button" aria-label="Tutup bio"><svg class="i"><use href="#i-close"/></svg></button>
+  <div class="bio-card">
+    <header class="prof">
+      <div class="ring"><img id="bAva" alt="Avatar"></div>
+      <p class="bname" id="bName"></p>
+      <p class="user">@<span id="bUser"></span></p>
+      <p class="bio" id="bBio"></p>
+      <div class="soc" id="bSoc"></div>
+    </header>
+    <nav class="links" id="bLinks" aria-label="Link bio"></nav>
+    <button class="share" id="bShare" type="button"><svg class="i"><use href="#i-share"/></svg>Bagikan bio</button>
+    <p class="foot">© 2026 <span data-text="name"></span><br>Tidak berafiliasi dengan Roblox Corporation atau Discord Inc.</p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
 <dialog id="player">
-  <div class="bar">
-    <h2 id="ptitle"></h2>
-    <button class="btn" id="pfs">Layar penuh</button>
-    <button class="btn x" id="pclose">Tutup</button>
-  </div>
+  <div class="pbar"><strong id="ptitle"></strong><button class="btn sm ghost" id="pfs" type="button">Layar penuh</button><button class="btn sm" id="pclose" type="button">Tutup</button></div>
   <iframe id="frame" allow="fullscreen; autoplay; gamepad; clipboard-write" title="Game"></iframe>
   <div id="pad"></div>
 </dialog>
-
 <script>
-/* Katalog diambil dari games.json (unduh di widgets.playgama.com setelah login, simpan di folder yang sama) */
-const CONFIG = { src: "games.json", batch: 60 };
+const CONFIG = {"name": "ReyyYuzora", "username": "prabbbz", "userId": "9164965658", "profile": "https://www.roblox.com/id/users/9164965658/profile", "avatar": "https://tr.rbxcdn.com/30DAY-Avatar-B28BC904C94890749D2E74CC5E058125-Png/352/352/Avatar/Png/noFilter", "discord": "https://discord.gg/pe3tb2dZCU", "web": "https://roblox-prabbbz.vercel.app/", "src": "games.json", "batch": 60};
 const $ = id => document.getElementById(id);
-let all = [], cat = "", shown = 0;
-
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const T = k => k;
+document.querySelectorAll("[data-text]").forEach(e => e.textContent = CONFIG[e.dataset.text]);
 /* ----- Pembaca data: mencari game di posisi mana pun dalam JSON ----- */
 const GAMEURL = /\/export\/game\//i;
 const loc = v => typeof v === "string" ? v : Array.isArray(v) ? loc(v[0]) : v && typeof v === "object" ? loc(v.en || v.EN || v.name || v.title || Object.values(v).find(x => typeof x === "string")) : "";
@@ -204,131 +414,232 @@ function normalize(g) {
 }
 /* ------------------------------------------------------------------- */
 
+const rnd = n => Math.floor(Math.random() * n);
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
+let all = [], cat = "", shown = 0, adPos = 5, adIdx = -1, feat = null;
 
-function drawCats() {
-  const n = {};
-  all.forEach(g => { if (g.cat) n[g.cat] = (n[g.cat] || 0) + 1; });
-  const list = ["", ...Object.keys(n).sort((a, b) => n[b] - n[a]).slice(0, 14)];
-  const nav = $("cats"); nav.textContent = "";
-  list.forEach((slug, i) => {
-    const b = el("button");
-    b.dataset.slug = slug; b.style.setProperty("--i", i);
-    b.append(el("span", "", slug || "Semua"), el("em", "", String(slug ? n[slug] : all.length)));
-    b.onclick = () => { cat = slug; markCats(); drawGames(true); };
-    nav.append(b);
-  });
-  markCats();
-}
-function markCats() { [...$("cats").children].forEach(b => b.classList.toggle("on", b.dataset.slug === cat)); }
-
-function drawGames(reset) {
-  const q = $("q").value.trim().toLowerCase(), grid = $("grid");
-  const list = all.filter(g => (!cat || g.cat === cat) && g.title.toLowerCase().includes(q));
-  shown = reset ? CONFIG.batch : shown;
-  grid.classList.toggle("fx", !!reset);
-  if (reset) adPos = 3 + Math.floor(Math.random() * 7);
-  grid.textContent = "";
-  if (!list.length) grid.append(el("p", "msg", "Game tidak ditemukan."));
-  list.slice(0, shown).forEach((g, idx) => {
-    if (idx === adPos && !q) grid.append(adTile());
-    const t = el("button", "tile");
-    t.style.setProperty("--i", idx);
-    if (g.img) { const i = el("img"); i.src = g.img; i.alt = ""; i.loading = "lazy"; t.append(i); }
-    t.append(el("span", "", g.title));
-    t.onclick = () => play(g);
-    grid.append(t);
-  });
-  $("more").hidden = shown >= list.length;
-}
-
-function setData(d) {
-  all = findGames(d).map(normalize);
-  if (!all.length) {
-    const pre = el("pre", "", JSON.stringify(d, null, 1).slice(0, 700));
-    pre.style.cssText = "white-space:pre-wrap;font-size:12px;margin-top:8px";
-    const n = el("div", "note", "File terbaca, tapi tidak ada link game (/export/game/) di dalamnya. Kirim potongan ini ke Claude:");
-    n.append(pre); $("note").replaceChildren(n);
-    return;
+/* ----- animasi muncul saat scroll, glow kursor, progress bar (gaya web Roblox) ----- */
+const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }), { threshold: .12 });
+const reveal = e => { e.classList.add("rv"); io.observe(e); };
+document.querySelectorAll(".sec .eyebrow, .sec h2, .sec .sub, .sec .card:not(.gcard)").forEach(reveal);
+const glow = $("glow"), bar = $("bar");
+document.addEventListener("pointermove", e => {
+  glow.style.setProperty("--mx", e.clientX + "px"); glow.style.setProperty("--my", e.clientY + "px");
+  const c = e.target.closest && e.target.closest(".card"); if (!c) return;
+  const r = c.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+  c.style.setProperty("--x", x + "px"); c.style.setProperty("--y", y + "px");
+  if (c.classList.contains("gcard") && e.pointerType === "mouse") {
+    c.style.setProperty("--rx", (.5 - y / r.height) * 8 + "deg"); c.style.setProperty("--ry", (x / r.width - .5) * 10 + "deg");
   }
-  $("note").textContent = "";
-  $("count").textContent = all.length;
-  drawCats(); drawGames(true); renderFeat();
+});
+document.addEventListener("pointerleave", e => {
+  if (e.target.classList && e.target.classList.contains("gcard")) { e.target.style.setProperty("--rx", "0deg"); e.target.style.setProperty("--ry", "0deg"); }
+}, true);
+$("burger").onclick = () => $("menu").classList.toggle("open");
+const links = [...$("menu").querySelectorAll("a")];
+links.forEach(a => a.onclick = () => $("menu").classList.remove("open"));
+const secs = links.map(a => document.querySelector(a.getAttribute("href")));
+function onScroll() {
+  $("nav").classList.toggle("solid", scrollY > 30);
+  let i = 0; secs.forEach((s, n) => { if (s.getBoundingClientRect().top < innerHeight * .4) i = n; });
+  links.forEach((a, n) => a.classList.toggle("on", n === i));
+  bar.style.transform = `scaleX(${scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight)})`;
+}
+addEventListener("scroll", onScroll, { passive: true }); onScroll();
+function countUp(e) {
+  const t = parseInt(e.textContent.replace(/\D/g, "")) || 0; let s = null;
+  const f = ts => { s ??= ts; const p = Math.min((ts - s) / 1200, 1); e.textContent = Math.round(t * (1 - Math.pow(1 - p, 3))).toLocaleString("id-ID"); if (p < 1) requestAnimationFrame(f); };
+  requestAnimationFrame(f);
 }
 
-function showPicker() {
-  $("grid").textContent = ""; $("more").hidden = true;
-  const n = el("div", "note");
-  n.append("games.json belum ditemukan. Unduh katalog di widgets.playgama.com (login dulu supaya CLID kamu ikut), simpan sebagai games.json di folder ini, atau pilih filenya di sini: ");
-  const f = el("input"); f.type = "file"; f.accept = ".json,application/json";
-  f.onchange = async () => { try { setData(JSON.parse(await f.files[0].text())); } catch (e) { alert("File tidak bisa dibaca: " + e.message); } };
-  n.append(f); $("note").replaceChildren(n);
-}
-
-async function load() {
-  try {
-    const r = await fetch(CONFIG.src);
-    if (!r.ok) throw new Error("HTTP " + r.status);
-    setData(await r.json());
-  } catch (e) { showPicker(); }
-}
-
-function play(g) {
-  $("ptitle").textContent = g.title;
-  showSlim();
-  $("frame").src = g.url;
-  $("player").showModal();
-}
-$("pclose").onclick = () => $("player").close();
-$("player").onclose = () => { $("frame").src = "about:blank"; };
-$("pfs").onclick = () => $("frame").requestFullscreen && $("frame").requestFullscreen();
-$("more").onclick = () => { shown += CONFIG.batch; drawGames(false); };
-$("q").oninput = () => drawGames(true);
-
-function renderFeat() {
-  const pool = all.filter(x => x.img), list = pool.length ? pool : all;
-  const g = list[Math.floor(Math.random() * list.length)], f = $("feat");
-  f.textContent = "";
-  const b = el("button", "featcard");
-  if (g.img) { const i = el("img"); i.src = g.img; i.alt = ""; b.append(i); }
-  b.append(el("small", "", "Game pilihan"), el("strong", "", g.title), el("span", "btn", "Mainkan"));
-  b.onclick = () => play(g);
-  f.append(b);
-}
-$("rand").onclick = () => { if (all.length) play(all[Math.floor(Math.random() * all.length)]); };
-$("burger").onclick = () => $("links").classList.toggle("open");
-$("links").onclick = () => $("links").classList.remove("open");
-
-/* ===== Iklan sendiri (house ads) -> mengarah ke web Roblox ===== */
-const AD_URL = "https://roblox-prabbbz.vercel.app/";
+/* ----- iklan sendiri (house ads) -> web Roblox ----- */
 const ADS = [
-  { h: "Suka Roblox? Coba game buatan kami", p: "Gratis dan langsung main lewat Roblox.", c: "Mainkan", g: ["#3df5ff", "#6c7bff"] },
-  { h: "Bosan? Pindah main ke Roblox", p: "Kumpulan game Roblox buatan sendiri.", c: "Lihat game", g: ["#ff2fd6", "#ff8a5f"] },
-  { h: "Build • Script • Play", p: "Game Roblox buatan kami menunggumu.", c: "Kunjungi", g: ["#39ff88", "#3df5ff"] },
-  { h: "Mau game Roblox yang seru?", p: "Cek daftar game kami sekarang.", c: "Cek sekarang", g: ["#ffd426", "#ff2fd6"] },
-  { h: "Main Roblox bareng kami", p: "Pilih game favorit, klik Mainkan, selesai.", c: "Ayo main", g: ["#7cf9ff", "#ff2fd6"] }
+  { h: "Suka Roblox? Coba game buatan kami", p: "Gratis dan langsung main lewat Roblox.", c: "Mainkan", g: ["#ff3d8b", "#ff9a3c"] },
+  { h: "Bosan? Pindah main ke Roblox", p: "Kumpulan game Roblox buatan sendiri.", c: "Lihat game", g: ["#2de2e6", "#ff3d8b"] },
+  { h: "Build • Script • Play", p: "Game Roblox buatan kami menunggumu.", c: "Kunjungi", g: ["#ff9a3c", "#2de2e6"] },
+  { h: "Mau game Roblox yang seru?", p: "Cek daftar game kami sekarang.", c: "Cek sekarang", g: ["#ff3d8b", "#2de2e6"] },
+  { h: "Main Roblox bareng kami", p: "Pilih game favorit, klik Mainkan, selesai.", c: "Ayo main", g: ["#2de2e6", "#ff9a3c"] }
 ];
-let adIdx = -1, adPos = 5;
-function nextAd() { let n; do { n = Math.floor(Math.random() * ADS.length); } while (n === adIdx && ADS.length > 1); return (adIdx = n); }
-function adLink(n, place) {
-  const a = el("a"), d = ADS[n];
-  a.href = AD_URL + "?utm_source=mainyuk&utm_medium=house_ad&utm_campaign=ad" + (n + 1) + "&utm_content=" + place;
+function nextAd() { let n; do { n = rnd(ADS.length); } while (n === adIdx); return (adIdx = n); }
+function adLink(n, place, cls) {
+  const a = el("a", cls), d = ADS[n];
+  a.href = CONFIG.web + "?utm_source=mainyuk&utm_medium=house_ad&utm_campaign=ad" + (n + 1) + "&utm_content=" + place;
   a.target = "_blank"; a.rel = "noopener";
   a.style.setProperty("--g1", d.g[0]); a.style.setProperty("--g2", d.g[1]);
   return a;
 }
-function adFill(a, d) {
-  const t = el("div"); t.append(el("strong", "", d.h), el("p", "", d.p));
-  a.append(el("small", "", "Iklan"), t, el("em", "btn", d.c));
+function showBanner() {
+  const n = nextAd(), d = ADS[n], a = adLink(n, "banner", "card adbar");
+  a.innerHTML = `<small class="adtag">Iklan</small><div><b>${esc(d.h)}</b><p>${esc(d.p)}</p></div><span class="btn sm">${esc(d.c)}</span>`;
+  $("adslot").replaceChildren(a);
 }
-function showBanner() { const n = nextAd(), a = adLink(n, "banner"); a.className = "ad"; adFill(a, ADS[n]); $("adslot").replaceChildren(a); }
-function adTile() { const n = Math.floor(Math.random() * ADS.length), a = adLink(n, "tile"); a.className = "tile adtile"; adFill(a, ADS[n]); return a; }
+function adCard() {
+  const n = rnd(ADS.length), d = ADS[n], a = adLink(n, "tile", "card gcard adcard");
+  a.innerHTML = `<div class="cover"><svg class="i big b"><use href="#i-roblox"/></svg></div><div class="gbody"><small>Iklan</small><h3>${esc(d.h)}</h3><span class="btn sm">${esc(d.c)}</span></div>`;
+  reveal(a); return a;
+}
 function showSlim() {
-  const n = nextAd(), d = ADS[n], a = adLink(n, "player"); a.className = "slim";
-  a.append(el("small", "", "Iklan"), el("strong", "", d.h), el("em", "btn", d.c)); $("pad").replaceChildren(a);
+  const n = nextAd(), d = ADS[n], a = adLink(n, "player", "slim");
+  a.innerHTML = `<small>Iklan</small><strong>${esc(d.h)}</strong><span class="btn sm">${esc(d.c)}</span>`;
+  $("pad").replaceChildren(a);
 }
-showBanner(); setInterval(showBanner, 15000);
 
+/* ----- daftar game ----- */
+function drawCats() {
+  const n = {};
+  all.forEach(g => { if (g.cat) n[g.cat] = (n[g.cat] || 0) + 1; });
+  const list = ["", ...Object.keys(n).sort((a, b) => n[b] - n[a]).slice(0, 14)], box = $("cats");
+  box.textContent = "";
+  list.forEach((slug, i) => {
+    const b = el("button"); b.type = "button"; b.dataset.slug = slug; b.style.setProperty("--i", i);
+    b.append(el("span", "", slug || "Semua"), el("em", "", String(slug ? n[slug] : all.length)));
+    b.onclick = () => { cat = slug; markCats(); drawGames(true); };
+    box.append(b);
+  });
+  markCats();
+}
+function markCats() { [...$("cats").children].forEach(b => b.classList.toggle("on", b.dataset.slug === cat)); }
+function gameCard(g, k) {
+  const c = el("article", "card gcard");
+  c.style.setProperty("--d", (k % 4) * .08 + "s");
+  c.innerHTML = `<div class="cover"><svg class="i big"><use href="#i-pad"/></svg>${g.img ? `<img src="${esc(g.img)}" alt="" loading="lazy" onerror="this.remove()">` : ""}</div><div class="gbody">${g.cat ? `<small>${esc(g.cat)}</small>` : ""}<h3>${esc(g.title)}</h3><button class="btn sm" type="button"><svg class="i f"><use href="#i-play"/></svg>Mainkan</button></div>`;
+  c.onclick = () => play(g);
+  reveal(c); return c;
+}
+function drawGames(reset) {
+  const q = $("q").value.trim().toLowerCase(), grid = $("gameList");
+  const list = all.filter(g => (!cat || g.cat === cat) && g.title.toLowerCase().includes(q));
+  const from = reset ? 0 : shown;
+  shown = reset ? CONFIG.batch : shown + CONFIG.batch;
+  if (reset) { adPos = 3 + rnd(7); grid.textContent = ""; if (!list.length) grid.append(el("p", "empty", "Game tidak ditemukan.")); }
+  list.slice(from, shown).forEach((g, k) => { const i = from + k; if (i === adPos && !q) grid.append(adCard()); grid.append(gameCard(g, k)); });
+  $("more").hidden = shown >= list.length;
+}
+function renderFeat() {
+  const pool = all.filter(x => x.img), l = pool.length ? pool : all;
+  feat = l[rnd(l.length)];
+  $("fname").textContent = feat.title; $("fsub").textContent = "Game pilihan" + (feat.cat ? " · " + feat.cat : "");
+  const a = $("fava"); a.style.display = feat.img ? "" : "none"; a.onerror = () => a.style.display = "none"; if (feat.img) a.src = feat.img;
+}
+function renderMarquee() {
+  const names = [...all].sort(() => Math.random() - .5).slice(0, 12).map(g => `<span>${esc(g.title)}</span>`).join("");
+  $("mq").innerHTML = names.repeat(6);
+}
+function setData(d) {
+  all = findGames(d).map(normalize);
+  if (!all.length) {
+    const n = el("div", "pk", "File terbaca, tapi tidak ada link game (/export/game/) di dalamnya. Kirim potongan ini ke Claude:");
+    n.append(el("pre", "", JSON.stringify(d, null, 1).slice(0, 700))); $("note").replaceChildren(n); return;
+  }
+  $("note").textContent = "";
+  $("stGames").textContent = all.length; countUp($("stGames"));
+  drawCats(); drawGames(true); renderFeat(); renderMarquee();
+}
+function showPicker() {
+  $("gameList").textContent = ""; $("more").hidden = true;
+  const n = el("div", "pk", "games.json belum ditemukan. Unduh katalog di widgets.playgama.com (login dulu supaya CLID kamu ikut), simpan sebagai games.json di folder ini, atau pilih filenya di sini: ");
+  const f = el("input"); f.type = "file"; f.accept = ".json,application/json";
+  f.onchange = async () => { try { setData(JSON.parse(await f.files[0].text())); } catch (e) { alert("File tidak bisa dibaca: " + e.message); } };
+  n.append(f); $("note").replaceChildren(n);
+}
+async function load() {
+  try { const r = await fetch(CONFIG.src); if (!r.ok) throw new Error("HTTP " + r.status); setData(await r.json()); } catch (e) { showPicker(); }
+}
+function play(g) {
+  $("ptitle").textContent = g.title; showSlim();
+  $("frame").src = g.url; $("player").showModal();
+}
+$("pclose").onclick = () => $("player").close();
+$("player").onclose = () => { $("frame").src = "about:blank"; };
+$("player").addEventListener("click", e => { if (e.target === $("player")) $("player").close(); });
+$("pfs").onclick = () => $("frame").requestFullscreen && $("frame").requestFullscreen();
+$("more").onclick = () => drawGames(false);
+$("q").oninput = () => drawGames(true);
+$("rand").onclick = () => { if (all.length) play(all[rnd(all.length)]); };
+$("fplay").onclick = () => { if (feat) play(feat); };
+
+// ===== BIO (link-in-bio) — panel yang muncul dari tombol "Bio" di navbar =====
+// Link dengan u kosong tampil redup + label "Segera". Isi u untuk mengaktifkan.
+const BIO = {
+  text: "Developer game Roblox. Mainkan game buatanku dan gabung komunitasnya!",
+  // icon: roblox | discord | tiktok | youtube | instagram | whatsapp | pad
+  links: [
+    { t: "Profil Roblox", s: "Lihat semua game buatanku", u: CONFIG.profile, i: "roblox", featured: true },
+    { t: "MainYuk", s: "Game online gratis, langsung main", u: location.href.split("#")[0], i: "pad", same: true },
+    { t: "Web Roblox", s: "Game Roblox buatanku", u: CONFIG.web, i: "roblox" },
+    { t: "Discord", s: "Gabung komunitas & dapat info update", u: CONFIG.discord, i: "discord" },
+    { t: "TikTok", s: "Cuplikan gameplay & pengumuman", u: "https://www.tiktok.com/@sueprabu_21?is_from_webapp=1&sender_device=pc", i: "tiktok" },
+    { t: "YouTube", s: "Video dan trailer game", u: "", i: "youtube" },
+    { t: "Instagram", s: "Foto dan cerita sehari-hari", u: "", i: "instagram" },
+    { t: "WhatsApp", s: "Chat langsung untuk kerja sama", u: "https://wa.me/6287781781230", i: "whatsapp" }
+  ]
+};
+const FILL = ["roblox", "discord", "tiktok", "youtube"];
+const ic = n => `<svg class="i${FILL.includes(n) ? " b" : ""}"><use href="#i-${esc(n)}"/></svg>`;
+$("bName").textContent = CONFIG.name; $("bUser").textContent = CONFIG.username; $("bBio").textContent = BIO.text;
+const bAva = $("bAva"); bAva.src = CONFIG.avatar; bAva.onerror = () => bAva.style.visibility = "hidden";
+
+$("bLinks").innerHTML = BIO.links.map((l, n) => {
+  const inner = `<span class="lic">${ic(l.i)}</span><span class="lt"><b>${esc(l.t)}</b><small>${esc(l.s)}</small></span>` +
+    (l.u ? `<svg class="i arr"><use href="#i-arrow"/></svg>` : `<span class="soon">Segera</span>`);
+  const cls = "lk" + (l.featured ? " feat" : "") + (l.u ? "" : " off");
+  return l.u ? `<a class="${cls}" style="--n:${n}" href="${esc(l.u)}"${l.same ? ' data-close' : ' target="_blank" rel="noopener"'}>${inner}</a>`
+             : `<div class="${cls}" style="--n:${n}">${inner}</div>`;
+}).join("");
+const bioLive = BIO.links.filter(l => l.u && !l.featured && !l.same);
+$("bSoc").innerHTML = bioLive.map(l => `<a href="${esc(l.u)}" target="_blank" rel="noopener" aria-label="${esc(l.t)}">${ic(l.i)}</a>`).join("");
+$("bSoc").hidden = !bioLive.length;
+
+const bioEl = $("bio"), bioToast = $("toast");
+function bioMsg(m) { bioToast.textContent = m; bioToast.classList.add("on"); clearTimeout(bioMsg.t); bioMsg.t = setTimeout(() => bioToast.classList.remove("on"), 2200); }
+function openBio() {
+  $("menu").classList.remove("open");
+  bioEl.classList.add("open"); bioEl.setAttribute("aria-hidden", "false"); bioEl.scrollTop = 0;
+  document.body.style.overflow = "hidden";
+  history.replaceState(null, "", location.pathname + location.search + "#bio");
+  $("bioX").focus({ preventScroll: true });
+}
+function closeBio() {
+  bioEl.classList.remove("open"); bioEl.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+  if (location.hash === "#bio") history.replaceState(null, "", location.pathname + location.search);
+  $("bioBtn").focus({ preventScroll: true });
+}
+$("bioBtn").onclick = openBio;
+$("bioX").onclick = closeBio;
+bioEl.addEventListener("click", e => {
+  if (e.target === bioEl || e.target.classList.contains("bio-bg") || e.target.classList.contains("bio-card") || e.target.closest("[data-close]")) closeBio();
+});
+addEventListener("keydown", e => { if (e.key === "Escape" && bioEl.classList.contains("open")) closeBio(); });
+addEventListener("hashchange", () => { if (location.hash === "#bio") openBio(); else if (bioEl.classList.contains("open")) closeBio(); });
+$("bShare").onclick = async () => {
+  const url = location.href.split("#")[0] + "#bio";
+  try { if (navigator.share) { await navigator.share({ title: CONFIG.name, url }); return; } } catch { return; }
+  try { await navigator.clipboard.writeText(url); bioMsg(T("Link bio disalin")); } catch { bioMsg(T("Salin dari address bar ya")); }
+};
+if (location.hash === "#bio") openBio();
+
+
+
+
+/* ----- tema terang/gelap & widget Discord ----- */
+const root = document.documentElement, tbtn = $("themeBtn");
+function applyTheme(t) {
+  root.dataset.theme = t; tbtn.textContent = t === "light" ? "☾" : "☀";
+  tbtn.setAttribute("aria-label", t === "light" ? "Dark mode" : "Light mode");
+  document.querySelector('meta[name="theme-color"]').content = t === "light" ? "#f5f6fb" : "#07080c";
+}
+applyTheme(root.dataset.theme || "dark");
+tbtn.onclick = () => { const t = root.dataset.theme === "light" ? "dark" : "light"; applyTheme(t); try { localStorage.setItem("theme", t); } catch {} };
+const dw = $("dw");
+if (dw && CONFIG.discord) fetch(`https://discord.com/api/v10/invites/${CONFIG.discord.split("/").pop().split("?")[0]}?with_counts=true`)
+  .then(r => r.json()).then(d => {
+    if (!d.approximate_member_count) return;
+    dw.innerHTML = `<span><i></i><b>${(d.approximate_presence_count ?? 0).toLocaleString("id-ID")}</b> online</span><span><b>${d.approximate_member_count.toLocaleString("id-ID")}</b> member</span>`;
+    dw.hidden = false;
+  }).catch(() => {});
+
+showBanner(); setInterval(showBanner, 15000);
 load();
 </script>
 </body>
